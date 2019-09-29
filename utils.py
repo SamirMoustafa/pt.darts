@@ -12,17 +12,17 @@ def get_data(dataset, data_path, cutout_length, validation):
     """ Get torchvision dataset """
     dataset = dataset.lower()
 
-    if dataset == 'cifar10':
+    if dataset == preproc.cifar10_NAME:
         dset_cls = dset.CIFAR10
-        n_classes = 10
-    elif dataset == 'mnist':
+    elif dataset == preproc.mnist_NAME:
         dset_cls = dset.MNIST
-        n_classes = 10
-    elif dataset == 'fashionmnist':
+    elif dataset == preproc.fashionmnist_NAME:
         dset_cls = dset.FashionMNIST
-        n_classes = 10
     else:
         raise ValueError(dataset)
+
+    # Put the number of class to 10 for any dataset
+    n_classes = 10
 
     trn_transform, val_transform = preproc.data_transforms(dataset, cutout_length)
     trn_data = dset_cls(root=data_path, train=True, download=True, transform=trn_transform)
